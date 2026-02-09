@@ -14,11 +14,11 @@
     'depends': ['sale'],
     'data': [
         'security/ir.model.access.csv',
+        'report/sale_order_report.xml',
+        'report/sale_order_template.xml',
         'views/report_profile_views.xml',
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
-        'report/sale_order_report.xml',
-        'report/sale_order_template.xml',
     ],
     'installable': True,
     'application': True,
