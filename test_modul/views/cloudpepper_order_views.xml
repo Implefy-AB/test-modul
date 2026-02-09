@@ -46,6 +46,19 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Produkter">
+                            <field name="order_line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
                         <page string="Anteckningar">
                             <field name="notes"/>
                         </page>
