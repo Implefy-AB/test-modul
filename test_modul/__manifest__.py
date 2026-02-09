@@ -1,6 +1,6 @@
 {
     'name': 'Test Modul - Cloudpepper Order',
-    'version': '19.0.1.1.0',
+    'version': '19.0.2.0.0',
     'summary': 'Integration med Cloudpepper för orderhantering',
     'description': """
         Modul för att koppla Odoo-ordrar till Cloudpepper.
