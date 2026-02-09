@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Report Profile Form View -->
+    <record id="report_profile_view_form" model="ir.ui.view">
+        <field name="name">report.profile.form</field>
+        <field name="model">report.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Allmänt">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="layout"/>
+                        </group>
+                        <group string="Utseende">
+                            <field name="logo" widget="image" class="oe_avatar"/>
+                            <field name="primary_color" widget="color"/>
+                            <field name="secondary_color" widget="color"/>
+                        </group>
+                    </group>
+                    <group string="Visa fält i rapporten">
+                        <group>
+                            <field name="show_delivery_address"/>
+                            <field name="show_discount"/>
+                            <field name="show_payment_terms"/>
+                        </group>
+                        <group>
+                            <field name="show_notes"/>
+                            <field name="show_taxes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Report Profile Tree View -->
+    <record id="report_profile_view_tree" model="ir.ui.view">
+        <field name="name">report.profile.tree</field>
+        <field name="model">report.profile</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="layout"/>
+                <field name="primary_color" widget="color"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="report_profile_action" model="ir.actions.act_window">
+        <field name="name">Rapportprofiler</field>
+        <field name="res_model">report.profile</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu under Sales > Configuration -->
+    <menuitem id="report_profile_menu"
+              name="Rapportprofiler"
+              parent="sale.menu_sale_config"
+              action="report_profile_action"
+              sequence="90"/>
+
+</odoo>
