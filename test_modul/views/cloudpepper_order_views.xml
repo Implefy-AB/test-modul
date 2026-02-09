@@ -1,26 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Inherit Sale Order Form View - add Cloudpepper fields -->
-    <record id="sale_order_form_inherit_cloudpepper" model="ir.ui.view">
-        <field name="name">sale.order.form.inherit.cloudpepper</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+    <!-- Tree View -->
+    <record id="cloudpepper_order_view_tree" model="ir.ui.view">
+        <field name="name">cloudpepper.order.tree</field>
+        <field name="model">cloudpepper.order</field>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='order_lines']" position="after">
-                <page string="Cloudpepper" name="cloudpepper">
+            <list>
+                <field name="name"/>
+                <field name="cloudpepper_order_id"/>
+                <field name="amount_total" sum="Totalt"/>
+                <field name="cloudpepper_status" widget="badge"
+                       decoration-info="cloudpepper_status == 'draft'"
+                       decoration-warning="cloudpepper_status == 'pending'"
+                       decoration-success="cloudpepper_status == 'synced'"
+                       decoration-danger="cloudpepper_status == 'error'"/>
+                <field name="last_sync_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="cloudpepper_order_view_form" model="ir.ui.view">
+        <field name="name">cloudpepper.order.form</field>
+        <field name="model">cloudpepper.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="cloudpepper_status" widget="statusbar"
+                           statusbar_visible="draft,pending,synced"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
                             <field name="cloudpepper_order_id"/>
-                            <field name="cloudpepper_status"/>
                         </group>
                         <group>
                             <field name="last_sync_date"/>
                         </group>
                     </group>
-                </page>
-            </xpath>
+                    <notebook>
+                        <page string="Produkter">
+                            <field name="order_line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Anteckningar">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
+
+    <!-- Action -->
+    <record id="cloudpepper_order_action" model="ir.actions.act_window">
+        <field name="name">Cloudpepper Ordrar</field>
+        <field name="res_model">cloudpepper.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="cloudpepper_menu_root"
+              name="Cloudpepper"
+              parent="sale.sale_menu_root"
+              sequence="20"/>
+
+    <menuitem id="cloudpepper_menu_orders"
+              name="Ordrar"
+              parent="cloudpepper_menu_root"
+              action="cloudpepper_order_action"
+              sequence="10"/>
 
 </odoo>
