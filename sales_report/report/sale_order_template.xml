@@ -130,7 +130,7 @@
                                             </t>
                                             <t t-if="not profile or profile.show_taxes">
                                                 <td style="text-align: right;">
-                                                    <t t-foreach="line.tax_id" t-as="tax">
+                                                    <t t-foreach="line.tax_ids" t-as="tax">
                                                         <span t-esc="tax.name"/>
                                                     </t>
                                                 </td>
